@@ -1,13 +1,16 @@
+import { ContactTabsComponent } from './containers/contact-tabs/contact-tabs.component';
+import { ContactComponent } from './components/contact/contact.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    {path:'',component:ContactListComponent,
-    children:[{
-        path:'details',component:ContactDetailsComponent
-    }]
+    {path:'',component:ContactComponent,
+    children:[
+        {path:'',component:ContactListComponent},
+        {path:'details/:id',component:ContactTabsComponent}
+]
 }
 ];
 

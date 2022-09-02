@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/_services/auth.service';
+import { TokenStorageService } from 'src/app/core/_services/token-storage.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 @Component({
@@ -23,11 +25,48 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
         }
     `]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
-    valCheck: string[] = ['remember'];
+    form: any = {};
+    isLoggedIn = false;
+    isLoginFailed = false;
+    errorMessage = '';
+    roles: string[] = [];
+    username!:string;
+    password!:string;
 
-    password!: string;
+    constructor(public layoutService: LayoutService,private authService:AuthService,private tokenStorage:TokenStorageService) {
+        this.authService.login().subscribe((res)=>{
+            console.log(res);
+            this.tokenStorage.saveToken(res.access_token)
+        })
+    }
+    ngOnInit(): void {
+        if (this.tokenStorage.getToken()) {
+            this.isLoggedIn = true;
+            this.roles = this.tokenStorage.getUser().roles;
+          }
+    }
 
-    constructor(public layoutService: LayoutService) { }
+    onSubmit(): void {
+        this.authService.login(this.form).subscribe(
+          data => {
+            this.tokenStorage.saveToken(data.accessToken);
+            this.tokenStorage.saveUser(data);
+
+            this.isLoginFailed = false;
+            this.isLoggedIn = true;
+            this.roles = this.tokenStorage.getUser().roles;
+            this.reloadPage();
+          },
+          err => {
+            this.errorMessage = err.error.message;
+            this.isLoginFailed = true;
+          }
+        );
+      }
+
+      reloadPage(): void {
+        window.location.reload();
+      }
 }

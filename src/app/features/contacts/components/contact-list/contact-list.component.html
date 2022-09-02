@@ -1,17 +1,15 @@
-<p>contact-list works!</p>
-<router-outlet></router-outlet>
 <p-table [value]="products">
     <ng-template pTemplate="header">
         <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Email</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-            <td>{{product.code}}</td>
+            <td [routerLink]="['./details/',product.id]">{{product.code}}</td>
             <td>{{product.name}}</td>
             <td>{{product.category}}</td>
             <td>{{product.quantity}}</td>
@@ -19,4 +17,4 @@
     </ng-template>
 </p-table>
 
-<p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+<p-paginator (onPageChange)="toto($event)" [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>

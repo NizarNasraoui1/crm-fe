@@ -11,6 +11,8 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
+import { authInterceptorProviders } from './core/_helpers/auth.interceptor';
+import { AuthService } from './core/_services/auth.service';
 
 @NgModule({
     declarations: [
@@ -23,7 +25,7 @@ import { PhotoService } from './demo/service/photo.service';
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        PhotoService, ProductService,authInterceptorProviders,AuthService
     ],
     bootstrap: [AppComponent]
 })

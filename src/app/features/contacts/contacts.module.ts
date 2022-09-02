@@ -9,11 +9,16 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { ContactComponent } from './components/contact/contact.component';
+import { ContactTabsComponent } from './containers/contact-tabs/contact-tabs.component';
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
   declarations: [
     ContactListComponent,
-    ContactDetailsComponent
+    ContactDetailsComponent,
+    ContactComponent,
+    ContactTabsComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +27,8 @@ import { InputTextModule } from 'primeng/inputtext';
     TableModule,
     PaginatorModule,
     FormsModule,
-    InputTextModule
+    InputTextModule,
+    TabViewModule
 
   ]
 })
