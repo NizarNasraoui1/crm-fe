@@ -1,3 +1,4 @@
+import { AppTopBarComponent } from './components/topbar/app.topbar.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -9,14 +10,13 @@ import { BadgeModule } from 'primeng/badge';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { RippleModule } from 'primeng/ripple';
-import { AppMenuComponent } from './app.menu.component';
-import { AppMenuitemComponent } from './app.menuitem.component';
+import { AppMenuitemComponent } from './components/menue-item/app.menuitem.component';
 import { RouterModule } from '@angular/router';
-import { AppTopBarComponent } from './app.topbar.component';
 import { AppConfigModule } from './config/config.module';
 import { AppLayoutComponent } from "./app.layout.component";
 import { AppFooterComponent } from './components/footer/app.footer.component';
 import { AppSidebarComponent } from './components/sidebar/app.sidebar.component';
+import { AppMenuComponent } from './components/menu/app.menu.component';
 
 @NgModule({
     declarations: [

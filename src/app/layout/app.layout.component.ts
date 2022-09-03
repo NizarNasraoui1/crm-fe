@@ -1,9 +1,8 @@
 import { Component, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
-import { MenuService } from './app.menu.service';
+import { MenuService } from './service/app.menu.service';
 import { LayoutService } from "./service/app.layout.service";
-import { AppTopBarComponent } from './app.topbar.component';
 import { AppSidebarComponent } from './components/sidebar/app.sidebar.component';
 
 @Component({
