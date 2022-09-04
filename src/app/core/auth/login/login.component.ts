@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/_services/auth.service';
 import { TokenStorageService } from 'src/app/core/_services/token-storage.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { LoginForm } from 'src/app/shared/models/loginForm';
 
 @Component({
     selector: 'app-login',
@@ -35,11 +37,8 @@ export class LoginComponent implements OnInit{
     username!:string;
     password!:string;
 
-    constructor(public layoutService: LayoutService,private authService:AuthService,private tokenStorage:TokenStorageService) {
-        this.authService.login().subscribe((res)=>{
-            console.log(res);
-            this.tokenStorage.saveToken(res.access_token)
-        })
+    constructor(public layoutService: LayoutService,private authService:AuthService,private tokenStorage:TokenStorageService,private router:Router) {
+
     }
     ngOnInit(): void {
         if (this.tokenStorage.getToken()) {
@@ -49,24 +48,24 @@ export class LoginComponent implements OnInit{
     }
 
     onSubmit(): void {
-        this.authService.login(this.form).subscribe(
+        const loginForm=new LoginForm(this.username,this.password);
+        this.authService.login(loginForm).subscribe(
           data => {
-            this.tokenStorage.saveToken(data.accessToken);
+            this.tokenStorage.saveAccessToken(data.access_token);
+            this.tokenStorage.saveRefreshToken(data.refresh_token);
             this.tokenStorage.saveUser(data);
-
             this.isLoginFailed = false;
             this.isLoggedIn = true;
             this.roles = this.tokenStorage.getUser().roles;
-            this.reloadPage();
+            this.navigateToMainPage();
           },
           err => {
-            this.errorMessage = err.error.message;
             this.isLoginFailed = true;
           }
         );
       }
 
-      reloadPage(): void {
-        window.location.reload();
+      navigateToMainPage(): void {
+        this.router.navigate([('/')]);
       }
 }

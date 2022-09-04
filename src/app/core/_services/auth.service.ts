@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LoginForm } from 'src/app/shared/models/loginForm';
 
 const AUTH_API = 'http://localhost:8080';
 
@@ -15,11 +16,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(credentials?:any): Observable<any> {
+  login(loginForm:LoginForm): Observable<any> {
 
     let body = new URLSearchParams();
-    body.set('username', 'root');
-    body.set('password', "password");
+    body.set('username', loginForm.username);
+    body.set('password', loginForm.password);
 
     let options = {
         headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')

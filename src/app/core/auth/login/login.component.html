@@ -25,8 +25,14 @@
                         </div>
                         <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Forgot password?</a>
                     </div>
-                    <button pButton pRipple label="Sign In" class="w-full p-3 text-xl"></button>
+                        <ng-container *ngIf="isLoginFailed">
+                            <p [ngStyle]="{'text-align':'center','color':'red'}" >
+                            Verify your credentails!
+                        </p>
+                        </ng-container>
+                    <button (click)="onSubmit()" pButton pRipple label="Sign In" class="w-full p-3 text-xl"></button>
                 </div>
+
             </div>
         </div>
     </div>
