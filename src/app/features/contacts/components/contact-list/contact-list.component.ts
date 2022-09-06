@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { ContactServiceService } from './../../service/contact-service.service';
 import { Component, OnInit } from '@angular/core';
+import { Contact } from '../../models/contact';
+import { SearchFields } from 'src/app/util/models/searchFields';
+import { FilteredPageWrapper } from 'src/app/util/models/filteredPageWrapper';
+import { PageRequestParams } from 'src/app/util/models/pageRequestParams';
 
 @Component({
   selector: 'app-contact-list',
@@ -8,32 +12,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-list.component.scss']
 })
 export class ContactListComponent implements OnInit {
-    products:any[]=[
-        {
-            category: "Accessories",
-            code: "f230fh0g3",
-            description: "Product Description",
-            id: "1000",
-            image: "bamboo-watch.jpg",
-            inventoryStatus: "INSTOCK",
-            name: "Bamboo Watch",
-            price: 65,
-            quantity: 24,
-            rating: 5}
-    ];
+    
+    contacts:Contact[]=[];
+
   constructor(private contactService:ContactServiceService,private http:HttpClient) { }
 
   ngOnInit(): void {
-    // this.http.post("/api/contact/filter",{
-    //     "searchFields":["firstName"]
-    // }).subscribe((res)=>{
-    //     console.log(res)
-    // });
-    this.http.get("/api/contact/all").subscribe((data)=>{
-        console.log("here")
-        console.log(data);
+    let pageRequest=new PageRequestParams(0,10);
+    let searchFields=new SearchFields(["firstName"]);
+    this.getContactPage(searchFields,pageRequest);
+
+  }
+
+  getContactPage(searchFields:SearchFields,pageRequest:PageRequestParams){
+    this.contactService.getContactPage(searchFields,pageRequest).subscribe((res:FilteredPageWrapper<Contact>)=>{
+        this.contacts=res.results;
+        console.log(this.contacts)
     })
   }
+
+
   toto($event:any){
     console.log($event)
   }

@@ -6,6 +6,7 @@ import { AppLayoutModule } from './layout/app.layout.module';
 import { NotfoundComponent } from './features/notfound/notfound.component'
 import { authInterceptorProviders } from './core/_helpers/auth.interceptor';
 import { AuthService } from './core/_services/auth.service';
+import { HttpUtilService } from './util/service/http-util.service';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,7 @@ import { AuthService } from './core/_services/auth.service';
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        authInterceptorProviders,AuthService
+        authInterceptorProviders,AuthService,HttpUtilService
     ],
     bootstrap: [AppComponent]
 })

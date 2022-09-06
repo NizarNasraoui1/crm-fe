@@ -30,6 +30,7 @@ import { TabViewModule } from 'primeng/tabview';
     InputTextModule,
     TabViewModule
 
-  ]
+  ],
+  providers: []
 })
 export class ContactsModule { }

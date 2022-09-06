@@ -1,19 +1,22 @@
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtil } from 'src/app/util/service/HttpUtil';
+import { Contact } from '../models/contact';
+import { HttpUtilService } from 'src/app/util/service/http-util.service';
+import { SearchFields } from 'src/app/util/models/searchFields';
+import { PageRequestParams } from 'src/app/util/models/pageRequestParams';
+import { FilteredPageWrapper } from 'src/app/util/models/filteredPageWrapper';
 
+const contactFilterUrl="/api/contact/filter/";
 @Injectable({
   providedIn: 'root'
 })
 export class ContactServiceService {
 
-  constructor(private h:HttpClient) {
+  constructor(private httpUtilService: HttpUtilService) {
   }
 
-  getContactFilteredPage():Observable<any>{
-    return this.h.post("/api/contact/filter",{
-        "searchFields":["firstName"]
-    });
+
+  getContactPage(searchFields:SearchFields,pageRequestParams:PageRequestParams):Observable<FilteredPageWrapper<Contact>>{
+    return this.httpUtilService.post(contactFilterUrl,searchFields,pageRequestParams);
   }
 }

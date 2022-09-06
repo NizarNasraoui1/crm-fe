@@ -1,4 +1,4 @@
-<p-table [value]="products">
+<p-table [value]="contacts">
     <ng-template pTemplate="header">
         <tr>
             <th>First Name</th>
@@ -10,9 +10,11 @@
     <ng-template pTemplate="body" let-product>
         <tr>
             <td [routerLink]="['./details/',product.id]">{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.quantity}}</td>
+            <td>{{product.firstName}}</td>
+            <td>{{product.lastName}}</td>
+            <td>{{product.address}}</td>
+            <td>{{product.email}}</td>
+
         </tr>
     </ng-template>
 </p-table>

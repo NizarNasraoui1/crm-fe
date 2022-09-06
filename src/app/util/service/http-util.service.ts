@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+@Injectable({
+  providedIn: 'root'
+})
+export class HttpUtilService {
 
+  constructor(private http:HttpClient) { }
 
-export abstract class HttpUtil {
-    constructor(protected http:HttpClient) {
-
-    }
-    get(url:string):Observable<any>{
-        return this.http.get(url);
+    get(url:string,requestParams?:any):Observable<any>{
+        return this.http.get(url,requestParams);
 
     }
     post(url:string,body:any,requestParams?:any):Observable<any>{
@@ -17,11 +19,10 @@ export abstract class HttpUtil {
 
     put(url:string,body:any):Observable<any>{
         return this.http.get(url,body);
-
     }
 
     delete(url:string):Observable<any>{
         return this.http.get(url);
-
     }
+
 }
