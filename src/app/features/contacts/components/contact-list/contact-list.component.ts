@@ -12,7 +12,7 @@ import { PageRequestParams } from 'src/app/util/models/pageRequestParams';
   styleUrls: ['./contact-list.component.scss']
 })
 export class ContactListComponent implements OnInit {
-    
+
     contacts:Contact[]=[];
 
   constructor(private contactService:ContactServiceService,private http:HttpClient) { }
@@ -27,13 +27,15 @@ export class ContactListComponent implements OnInit {
   getContactPage(searchFields:SearchFields,pageRequest:PageRequestParams){
     this.contactService.getContactPage(searchFields,pageRequest).subscribe((res:FilteredPageWrapper<Contact>)=>{
         this.contacts=res.results;
-        console.log(this.contacts)
     })
   }
 
 
-  toto($event:any){
+  onPageChange($event:any){
     console.log($event)
+    let pageRequest=new PageRequestParams($event.page,$event.pageCount);
+    let searchFields=new SearchFields(["firstName"]);
+    this.getContactPage(searchFields,pageRequest);
   }
 
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -14,7 +14,14 @@ export class HttpUtilService {
 
     }
     post(url:string,body:any,requestParams?:any):Observable<any>{
-        return this.http.post(url,body,requestParams);
+        var params=new HttpParams();
+        if(requestParams){
+            for(let param of Object.keys(requestParams)){
+                params=params.append(param,requestParams[param]);
+            }
+        }
+        console.log(params)
+        return this.http.post(url,body,{params});
     }
 
     put(url:string,body:any):Observable<any>{
