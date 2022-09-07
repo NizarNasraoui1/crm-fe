@@ -32,18 +32,9 @@ export class ContactListComponent implements OnInit {
 
 
   onPageChange($event:any){
-    console.log($event)
-    let pageRequest=new PageRequestParams($event.page,$event.pageCount);
+    let pageRequest=new PageRequestParams($event.page,$event.rows);
     let searchFields=new SearchFields(["firstName"]);
     this.getContactPage(searchFields,pageRequest);
   }
 
 }
-/*
-{
-  "page": 1,
-  "first": 10,
-  "rows": 10,
-  "pageCount": 12
-}
-*/

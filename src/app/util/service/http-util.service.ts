@@ -20,7 +20,6 @@ export class HttpUtilService {
                 params=params.append(param,requestParams[param]);
             }
         }
-        console.log(params)
         return this.http.post(url,body,{params});
     }
 
