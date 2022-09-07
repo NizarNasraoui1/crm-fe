@@ -5,6 +5,7 @@ import { Contact } from '../../models/contact';
 import { SearchFields } from 'src/app/util/models/searchFields';
 import { FilteredPageWrapper } from 'src/app/util/models/filteredPageWrapper';
 import { PageRequestParams } from 'src/app/util/models/pageRequestParams';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-contact-list',
@@ -15,7 +16,7 @@ export class ContactListComponent implements OnInit {
 
     contacts:Contact[]=[];
 
-  constructor(private contactService:ContactService,private http:HttpClient) { }
+  constructor(private contactService:ContactService,private http:HttpClient,private messageService: MessageService) { }
 
   ngOnInit(): void {
     let pageRequest=new PageRequestParams(0,10);
@@ -39,6 +40,7 @@ export class ContactListComponent implements OnInit {
 
   deleteContact(id:number){
     this.contactService.deleteCotnact(id).subscribe((res)=>{
+      this.messageService.add({severity:'success', summary: 'Success', detail: 'Deleted Succefully'});
     })
   }
 

@@ -8,6 +8,7 @@ import { authInterceptorProviders } from './core/_helpers/auth.interceptor';
 import { AuthService } from './core/_services/auth.service';
 import { HttpUtilService } from './util/service/http-util.service';
 import { SharedModule } from './shared/shared.module';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,7 @@ import { SharedModule } from './shared/shared.module';
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        authInterceptorProviders,AuthService,HttpUtilService
+        authInterceptorProviders,AuthService,HttpUtilService,MessageService
     ],
     bootstrap: [AppComponent]
 })

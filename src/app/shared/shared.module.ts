@@ -4,6 +4,7 @@ import { ToastComponent } from '../util/components/toast/toast.component';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import {RippleModule} from 'primeng/ripple'
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [ToastComponent],
@@ -15,6 +16,7 @@ import {RippleModule} from 'primeng/ripple'
     ToastModule
 
   ],
-  exports:[ToastComponent]
+  exports:[ToastComponent],
+  providers:[]
 })
 export class SharedModule { }
