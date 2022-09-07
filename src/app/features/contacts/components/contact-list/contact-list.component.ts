@@ -41,6 +41,9 @@ export class ContactListComponent implements OnInit {
   deleteContact(id:number){
     this.contactService.deleteCotnact(id).subscribe((res)=>{
       this.messageService.add({severity:'success', summary: 'Success', detail: 'Deleted Succefully'});
+    },
+    (error)=>{
+      this.messageService.add({severity:'error', summary: 'Warn', detail: 'Delete fails'});
     })
   }
 
