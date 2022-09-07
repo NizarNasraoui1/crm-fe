@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactTabsComponent } from './containers/contact-tabs/contact-tabs.component';
 import { TabViewModule } from 'primeng/tabview';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { TabViewModule } from 'primeng/tabview';
     PaginatorModule,
     FormsModule,
     InputTextModule,
-    TabViewModule
+    TabViewModule,
+    SharedModule
 
   ],
   providers: []

@@ -7,6 +7,7 @@ import { NotfoundComponent } from './features/notfound/notfound.component'
 import { authInterceptorProviders } from './core/_helpers/auth.interceptor';
 import { AuthService } from './core/_services/auth.service';
 import { HttpUtilService } from './util/service/http-util.service';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -14,7 +15,9 @@ import { HttpUtilService } from './util/service/http-util.service';
     ],
     imports: [
         AppRoutingModule,
-        AppLayoutModule
+        AppLayoutModule,
+        SharedModule
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

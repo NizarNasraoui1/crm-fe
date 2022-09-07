@@ -24,11 +24,11 @@ export class HttpUtilService {
     }
 
     put(url:string,body:any):Observable<any>{
-        return this.http.get(url,body);
+        return this.http.put(url,body);
     }
 
     delete(url:string):Observable<any>{
-        return this.http.get(url);
+        return this.http.delete(url);
     }
 
 }

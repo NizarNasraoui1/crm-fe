@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ContactServiceService } from './../../service/contact-service.service';
+import { ContactService } from './../../service/contact.service';
 import { Component, OnInit } from '@angular/core';
 import { Contact } from '../../models/contact';
 import { SearchFields } from 'src/app/util/models/searchFields';
@@ -9,13 +9,13 @@ import { PageRequestParams } from 'src/app/util/models/pageRequestParams';
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.scss']
+  styleUrls: ['./contact-list.component.scss'],
 })
 export class ContactListComponent implements OnInit {
 
     contacts:Contact[]=[];
 
-  constructor(private contactService:ContactServiceService,private http:HttpClient) { }
+  constructor(private contactService:ContactService,private http:HttpClient) { }
 
   ngOnInit(): void {
     let pageRequest=new PageRequestParams(0,10);
@@ -35,6 +35,11 @@ export class ContactListComponent implements OnInit {
     let pageRequest=new PageRequestParams($event.page,$event.rows);
     let searchFields=new SearchFields(["firstName"]);
     this.getContactPage(searchFields,pageRequest);
+  }
+
+  deleteContact(id:number){
+    this.contactService.deleteCotnact(id).subscribe((res)=>{
+    })
   }
 
 }
