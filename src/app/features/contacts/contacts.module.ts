@@ -13,6 +13,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ContactTabsComponent } from './containers/contact-tabs/contact-tabs.component';
 import { TabViewModule } from 'primeng/tabview';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     InputTextModule,
     TabViewModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
 
   ],
   providers: []

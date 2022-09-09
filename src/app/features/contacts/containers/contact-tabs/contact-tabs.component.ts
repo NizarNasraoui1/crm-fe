@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpUtilService } from 'src/app/util/service/http-util.service';
+import { Contact } from '../../models/contact';
+import { ContactService } from '../../service/contact.service';
 
 @Component({
   selector: 'app-contact-tabs',
@@ -7,12 +10,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./contact-tabs.component.scss']
 })
 export class ContactTabsComponent implements OnInit {
-
-  constructor(private route:ActivatedRoute) { }
+  contact:Contact;
+  constructor(private route:ActivatedRoute,private contactService:ContactService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
-        console.log(params.get('id'));
+      let id=params.get('id');
+      if(id){
+        this.contactService.getContactById(parseInt(id)).subscribe((res)=>{
+          this.contact=res;
+        })
+      }
+        
+    })
+  }
+  saveContact(contact:Contact){
+    this.contactService.updateContact(contact).subscribe((res)=>{
     })
   }
 

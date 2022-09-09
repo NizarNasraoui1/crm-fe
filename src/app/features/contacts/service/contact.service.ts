@@ -6,7 +6,7 @@ import { SearchFields } from 'src/app/util/models/searchFields';
 import { PageRequestParams } from 'src/app/util/models/pageRequestParams';
 import { FilteredPageWrapper } from 'src/app/util/models/filteredPageWrapper';
 
-const contactFilterUrl="/api/contact";
+const contactUrl="/api/contact";
 
 
 @Injectable({
@@ -19,11 +19,22 @@ export class ContactService {
 
 
   getContactPage(searchFields:SearchFields,pageRequestParams:PageRequestParams):Observable<FilteredPageWrapper<Contact>>{
-    return this.httpUtilService.post(`${contactFilterUrl}/filter`,searchFields,pageRequestParams);
+    return this.httpUtilService.post(`${contactUrl}/filter`,searchFields,pageRequestParams);
+  }
+
+  getContactById(id:number):Observable<Contact>{
+    return this.httpUtilService.get(`${contactUrl}/${id}`);
+  }
+  
+  addContact(contact:Contact):Observable<Contact>{
+    return this.httpUtilService.post(`${contactUrl}`,contact);
+  }
+
+  updateContact(contact:Contact):Observable<Contact>{
+    return this.httpUtilService.put(`${contactUrl}`,contact);
   }
 
   deleteCotnact(id:number):Observable<any>{
-    console.log(`${contactFilterUrl}/${id}`)
-    return this.httpUtilService.delete(`${contactFilterUrl}/${id}`);
+    return this.httpUtilService.delete(`${contactUrl}/${id}`);
   }
 }
