@@ -36,8 +36,6 @@ export class ContactDetailsComponent implements OnInit,OnChanges {
   }
 
   onSubmit(){
-    let newContact:Contact=this.contactForm.value;
-    newContact.id=this.contact.id;
-    this.updateContact.emit(newContact);
+    this.updateContact.emit(this.contactForm.value);
   }
 }

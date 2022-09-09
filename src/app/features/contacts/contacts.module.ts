@@ -9,18 +9,20 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { ContactComponent } from './components/contact/contact.component';
+import { ContactComponent } from './containers/contact/contact.component';
 import { ContactTabsComponent } from './containers/contact-tabs/contact-tabs.component';
 import { TabViewModule } from 'primeng/tabview';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddContactComponent } from './components/add-contact/add-contact.component';
 
 @NgModule({
   declarations: [
     ContactListComponent,
     ContactDetailsComponent,
     ContactComponent,
-    ContactTabsComponent
+    ContactTabsComponent,
+    AddContactComponent
   ],
   imports: [
     CommonModule,

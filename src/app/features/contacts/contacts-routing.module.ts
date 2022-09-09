@@ -1,5 +1,5 @@
 import { ContactTabsComponent } from './containers/contact-tabs/contact-tabs.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { ContactComponent } from './containers/contact/contact.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { NgModule } from '@angular/core';
