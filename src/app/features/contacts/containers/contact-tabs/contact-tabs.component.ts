@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SaveRequest } from 'src/app/shared/models/saveRequest';
 import { HttpUtilService } from 'src/app/util/service/http-util.service';
 import { Contact } from '../../models/contact';
 import { ContactService } from '../../service/contact.service';
@@ -21,12 +22,18 @@ export class ContactTabsComponent implements OnInit {
           this.contact=res;
         })
       }
-        
     })
   }
-  saveContact(contact:Contact){
-    this.contactService.updateContact(contact).subscribe((res)=>{
+
+  updateContact(contact:Contact){
+    this.contactService.updateContact(this.contact.id,contact).subscribe((res)=>{
+      
     })
   }
+
+
+
+
+  
 
 }

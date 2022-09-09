@@ -9,8 +9,7 @@ import {Contact} from '../../models/contact';
 })
 export class ContactDetailsComponent implements OnInit,OnChanges {
   @Input() contact:Contact;
-  @Input() componentType!:string;
-  @Output() savedContact=new EventEmitter<Contact>;  
+  @Output() updateContact=new EventEmitter<Contact>;  
   contactForm:FormGroup;
 
   constructor() {
@@ -23,8 +22,7 @@ export class ContactDetailsComponent implements OnInit,OnChanges {
    }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.contact)
-    if(this.contact && this.componentType==='update'){
+    if(this.contact){
         this.contactForm.reset({
         firstName:this.contact.firstName,
         lastName:this.contact.lastName,
@@ -32,19 +30,14 @@ export class ContactDetailsComponent implements OnInit,OnChanges {
         email:this.contact.email
       })
     }
-
   }
 
   ngOnInit(): void {
   }
 
   onSubmit(){
-    if(this.componentType==='update'){
-      let newContact:Contact=this.contactForm.value;
-      newContact.id=this.contact.id;
-      this.savedContact.emit(newContact);
-    }
-    
+    let newContact:Contact=this.contactForm.value;
+    newContact.id=this.contact.id;
+    this.updateContact.emit(newContact);
   }
-
 }

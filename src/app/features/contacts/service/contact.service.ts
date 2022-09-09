@@ -30,8 +30,8 @@ export class ContactService {
     return this.httpUtilService.post(`${contactUrl}`,contact);
   }
 
-  updateContact(contact:Contact):Observable<Contact>{
-    return this.httpUtilService.put(`${contactUrl}`,contact);
+  updateContact(id:number,contact:Contact):Observable<Contact>{
+    return this.httpUtilService.put(`${contactUrl}/details/${id}`,contact);
   }
 
   deleteCotnact(id:number):Observable<any>{

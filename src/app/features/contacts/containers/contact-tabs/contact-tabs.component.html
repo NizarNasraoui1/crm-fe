@@ -3,7 +3,7 @@
     <p-tabView>
       <p-tabPanel header="Details">
         <p>
-          <app-contact-details (savedContact)="saveContact($event);" [contact]="this.contact" [componentType]="'update'"></app-contact-details>
+          <app-contact-details (updateContact)="updateContact($event);" [contact]="this.contact" ></app-contact-details>
         </p>
       </p-tabPanel>
       <p-tabPanel header="Notes">
