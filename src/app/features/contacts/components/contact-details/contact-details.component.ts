@@ -24,7 +24,6 @@ export class ContactDetailsComponent implements OnInit,OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if(this.contact){
-      console.log(this.contact)
         this.contactForm.reset({
         firstName:this.contact.firstName,
         lastName:this.contact.lastName,
