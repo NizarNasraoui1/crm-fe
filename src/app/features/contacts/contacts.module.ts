@@ -15,6 +15,9 @@ import { TabViewModule } from 'primeng/tabview';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddContactComponent } from './components/add-contact/add-contact.component';
+import {CardModule} from 'primeng/card';
+import { SearchBarComponent } from '../../shared/components/search-bar/search-bar.component';
+import { MultiSelectModule } from "primeng/multiselect";
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { AddContactComponent } from './components/add-contact/add-contact.compon
     ContactDetailsComponent,
     ContactComponent,
     ContactTabsComponent,
-    AddContactComponent
+    AddContactComponent,
+    SearchBarComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,9 @@ import { AddContactComponent } from './components/add-contact/add-contact.compon
     InputTextModule,
     TabViewModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CardModule,
+    MultiSelectModule
 
   ],
   providers: []

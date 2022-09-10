@@ -1,0 +1,33 @@
+<div class="content">
+    <div class="grid p-fluid">
+        <div class="col-12 md:col-2">
+            <span class="p-float-label p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input type="text" id="inputtext-left" pInputText>
+                <label for="inputtext-left">Search</label>
+            </span>
+        </div>
+        <div class="col-12 md:col-2">
+            <span class="p-float-label">
+                <p-multiSelect
+                  inputId="multiselect"
+                  [options]="cities"
+                  optionLabel="name"
+                  [filter]="false"
+                ></p-multiSelect>
+                <label for="multiselect">Search Fields</label>
+              </span>
+        </div>
+        <div class="col-12 md:col-2">
+        <p-dropdown placeholder="Sort By" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" ></p-dropdown>
+        </div>
+
+        <div class="col-12 md:col-2">
+            <p-dropdown placeholder="Sort Direction" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" ></p-dropdown>
+            </div>
+        
+        <div class="col-12 md:col-2 add">
+            <p-button [routerLink]="['./add']"  label="Add Contact"></p-button>
+        </div>
+    </div>
+</div>

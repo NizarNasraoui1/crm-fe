@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { ContactService } from './../../service/contact.service';
 import { Component, OnInit } from '@angular/core';
 import { Contact } from '../../models/contact';
-import { SearchFields } from 'src/app/util/models/searchFields';
-import { FilteredPageWrapper } from 'src/app/util/models/filteredPageWrapper';
-import { PageRequestParams } from 'src/app/util/models/pageRequestParams';
+import { SearchFields } from 'src/app/shared/models/searchFields';
+import { FilteredPageWrapper } from 'src/app/shared/models/filteredPageWrapper';
+import { PageRequestParams } from 'src/app/shared/models/pageRequestParams';
 import { MessageService } from 'primeng/api';
+import { SearchParams } from 'src/app/shared/models/searchParams';
 
 @Component({
   selector: 'app-contact-list',
@@ -14,14 +15,18 @@ import { MessageService } from 'primeng/api';
 })
 export class ContactListComponent implements OnInit {
 
-    contacts:Contact[]=[];
-
+  contacts:Contact[]=[];
+  searchParams:SearchParams;
   constructor(private contactService:ContactService,private http:HttpClient,private messageService: MessageService) { }
 
   ngOnInit(): void {
-    let pageRequest=new PageRequestParams(0,10);
-    let searchFields=new SearchFields(["firstName"]);
-    this.getContactPage(searchFields,pageRequest);
+    this.contactService.getSearchParams().subscribe((res) => {
+      this.searchParams = res;
+      let pageRequest = new PageRequestParams(0, 10);
+      let searchFields = new SearchFields([this.searchParams.sortFields[0]]);
+      this.getContactPage(searchFields, pageRequest);
+    })
+    
 
   }
 

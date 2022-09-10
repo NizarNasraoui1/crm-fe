@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import {Contact} from '../../models/contact';
 
 @Component({
@@ -23,6 +24,7 @@ export class ContactDetailsComponent implements OnInit,OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if(this.contact){
+      console.log(this.contact)
         this.contactForm.reset({
         firstName:this.contact.firstName,
         lastName:this.contact.lastName,

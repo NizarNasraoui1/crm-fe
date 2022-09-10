@@ -2,9 +2,10 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Contact } from '../models/contact';
 import { HttpUtilService } from 'src/app/util/service/http-util.service';
-import { SearchFields } from 'src/app/util/models/searchFields';
-import { PageRequestParams } from 'src/app/util/models/pageRequestParams';
-import { FilteredPageWrapper } from 'src/app/util/models/filteredPageWrapper';
+import { SearchFields } from 'src/app/shared/models/searchFields';
+import { PageRequestParams } from 'src/app/shared/models/pageRequestParams';
+import { FilteredPageWrapper } from 'src/app/shared/models/filteredPageWrapper';
+import { SearchParams } from 'src/app/shared/models/searchParams';
 
 const contactUrl="/api/contact";
 
@@ -28,6 +29,10 @@ export class ContactService {
   
   addContact(contact:Contact):Observable<Contact>{
     return this.httpUtilService.post(`${contactUrl}`,contact);
+  }
+
+  getSearchParams():Observable<SearchParams>{
+    return this.httpUtilService.get(`${contactUrl}/searchParams`);
   }
 
   updateContact(id:number,contact:Contact):Observable<Contact>{

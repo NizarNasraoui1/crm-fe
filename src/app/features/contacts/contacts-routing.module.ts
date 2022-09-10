@@ -4,11 +4,13 @@ import { ContactDetailsComponent } from './components/contact-details/contact-de
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddContactComponent } from './components/add-contact/add-contact.component';
 
 const routes: Routes = [
     {path:'',component:ContactComponent,
     children:[
         {path:'',component:ContactListComponent},
+        {path:'add',component:AddContactComponent},
         {path:'details/:id',component:ContactTabsComponent}
 ]
 }
