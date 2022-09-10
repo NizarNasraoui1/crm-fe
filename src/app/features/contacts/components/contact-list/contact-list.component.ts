@@ -23,9 +23,9 @@ export class ContactListComponent implements OnInit {
     this.contactService.getSearchParams().subscribe((res) => {
       this.searchParams = res;
       let pageRequest = new PageRequestParams(0, 10);
-      let searchFields = new SearchFields([this.searchParams.sortFields[0]]);
+      let searchFields = new SearchFields([this.searchParams.searchFields[0].name]);
       this.getContactPage(searchFields, pageRequest);
-    })
+    });
     
 
   }

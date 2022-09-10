@@ -1,3 +1,6 @@
+import { Param } from "./param";
+
 export interface SearchParams{
-    sortFields:string[]
+    sortFields:Param[],
+    searchFields:Param[]
 }

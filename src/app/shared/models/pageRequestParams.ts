@@ -5,7 +5,7 @@ export class PageRequestParams{
     sortField!:string;
     searchWord!:string;
 
-    constructor(page:number,pageSize:number,sortDirection?:string,sortField?:string,searchWord:string=""){
+    public constructor(page:number,pageSize:number,searchWord:string="",sortDirection?:string,sortField?:string){
         this.page=page;
         this.pageSize=pageSize;
         this.searchWord=searchWord;
