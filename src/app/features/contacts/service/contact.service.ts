@@ -19,7 +19,7 @@ export class ContactService {
   }
 
 
-  getContactPage(searchFields:SearchFields,pageRequestParams:PageRequestParams):Observable<FilteredPageWrapper<Contact>>{
+  getContactPage(pageRequestParams:PageRequestParams,searchFields:SearchFields):Observable<FilteredPageWrapper<Contact>>{
     return this.httpUtilService.post(`${contactUrl}/filter`,searchFields,pageRequestParams);
   }
 

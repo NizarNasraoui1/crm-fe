@@ -10,6 +10,6 @@ export class SearchForm{
         this.searchWord=searchWord;
         this.searchFields=searchFields;
         this.sortField=sortField;
-        sortDirection=sortDirection;
+        this.sortDirection=sortDirection;
     }
 }

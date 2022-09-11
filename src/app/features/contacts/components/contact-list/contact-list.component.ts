@@ -7,6 +7,7 @@ import { FilteredPageWrapper } from 'src/app/shared/models/filteredPageWrapper';
 import { PageRequestParams } from 'src/app/shared/models/pageRequestParams';
 import { MessageService } from 'primeng/api';
 import { SearchParams } from 'src/app/shared/models/searchParams';
+import { SearchForm } from 'src/app/shared/models/searchForm';
 
 @Component({
   selector: 'app-contact-list',
@@ -17,30 +18,45 @@ export class ContactListComponent implements OnInit {
 
   contacts:Contact[]=[];
   searchParams:SearchParams;
+  searchFields:SearchFields;
+  pageSize:number=10;
+
   constructor(private contactService:ContactService,private http:HttpClient,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.contactService.getSearchParams().subscribe((res) => {
       this.searchParams = res;
       let pageRequest = new PageRequestParams(0, 10);
-      let searchFields = new SearchFields([this.searchParams.searchFields[0].name]);
-      this.getContactPage(searchFields, pageRequest);
+      this.searchFields = new SearchFields([this.searchParams.searchFields[0].name]);
+      this.getContactPage(pageRequest,this.searchFields);
     });
     
 
   }
 
-  getContactPage(searchFields:SearchFields,pageRequest:PageRequestParams){
-    this.contactService.getContactPage(searchFields,pageRequest).subscribe((res:FilteredPageWrapper<Contact>)=>{
-        this.contacts=res.results;
-    })
+  getContactPage(pageRequest:PageRequestParams,searchFields:SearchFields){
+    // if(searchFields){
+    //   this.contactService.getContactPage(pageRequest,searchFields).subscribe((res:FilteredPageWrapper<Contact>)=>{
+    //     this.contacts=res.results;
+    // });
+    // }
+    // else{
+    //   this.contactService.getContactPage(pageRequest).subscribe((res:FilteredPageWrapper<Contact>)=>{
+    //     this.contacts=res.results;
+    // });
+    // }
+    this.contactService.getContactPage(pageRequest,searchFields).subscribe((res:FilteredPageWrapper<Contact>)=>{
+      this.contacts=[];
+      this.contacts=res.results;
+  })
   }
 
 
   onPageChange($event:any){
+    this.pageSize=$event.rows;
     let pageRequest=new PageRequestParams($event.page,$event.rows);
     let searchFields=new SearchFields(["firstName"]);
-    this.getContactPage(searchFields,pageRequest);
+    this.getContactPage(pageRequest,searchFields);
   }
 
   deleteContact(id:number){
@@ -50,6 +66,12 @@ export class ContactListComponent implements OnInit {
     (error)=>{
       this.messageService.add({severity:'error', summary: 'Warn', detail: 'Delete fails'});
     })
+  }
+
+  onSearchFormChange(searchForm:SearchForm){
+    let pageRequest = new PageRequestParams(0, this.pageSize,searchForm.searchWord,searchForm.sortDirection,searchForm.sortField);
+    let searchFields = new SearchFields(searchForm.searchFields);
+    this.getContactPage(pageRequest,searchFields);
   }
 
 }
