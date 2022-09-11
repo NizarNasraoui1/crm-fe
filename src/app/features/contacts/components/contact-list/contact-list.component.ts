@@ -20,6 +20,7 @@ export class ContactListComponent implements OnInit {
   searchParams:SearchParams;
   searchFields:SearchFields;
   pageSize:number=10;
+  totalRecords:number=0;
 
   constructor(private contactService:ContactService,private http:HttpClient,private messageService: MessageService) { }
 
@@ -47,6 +48,7 @@ export class ContactListComponent implements OnInit {
     // }
     this.contactService.getContactPage(pageRequest,searchFields).subscribe((res:FilteredPageWrapper<Contact>)=>{
       this.contacts=[];
+      this.totalRecords=res.count;
       this.contacts=res.results;
   })
   }
@@ -55,8 +57,7 @@ export class ContactListComponent implements OnInit {
   onPageChange($event:any){
     this.pageSize=$event.rows;
     let pageRequest=new PageRequestParams($event.page,$event.rows);
-    let searchFields=new SearchFields(["firstName"]);
-    this.getContactPage(pageRequest,searchFields);
+    this.getContactPage(pageRequest,this.searchFields);
   }
 
   deleteContact(id:number){
