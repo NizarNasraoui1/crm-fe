@@ -47,6 +47,7 @@ export class ContactListComponent implements OnInit {
     // });
     // }
     this.contactService.getContactPage(pageRequest,searchFields).subscribe((res:FilteredPageWrapper<Contact>)=>{
+      console.log(res)
       this.contacts=[];
       this.totalRecords=res.count;
       this.contacts=res.results;
@@ -63,6 +64,8 @@ export class ContactListComponent implements OnInit {
   deleteContact(id:number){
     this.contactService.deleteCotnact(id).subscribe((res)=>{
       this.messageService.add({severity:'success', summary: 'Success', detail: 'Deleted Succefully'});
+      let pageRequest = new PageRequestParams(0, 10);
+      this.getContactPage(pageRequest,this.searchFields);
     },
     (error)=>{
       this.messageService.add({severity:'error', summary: 'Warn', detail: 'Delete fails'});
