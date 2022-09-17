@@ -1,11 +1,11 @@
 <div class="searchBar" *ngIf="searchParams">
 
-    <div class="flex">
+    <div class="grid p-fluid">
         <div class="col-12 md:col-10">
             <app-search-bar (searchForm)="onSearchFormChange($event)" [searchParams]="searchParams"></app-search-bar>
 
         </div>
-        <div class="col-12 md:col-2">
+        <div class="col-12 md:col-2 addContact">
             <p-button [routerLink]="['./add']" label="Add Contact"></p-button>
 
         </div>
