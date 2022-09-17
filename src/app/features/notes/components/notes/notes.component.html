@@ -1,8 +1,7 @@
-<p-button (click)="onSaveNote()" label="Add Note"></p-button>
-<ng-container *ngFor="let note of noteList">
+<p-button style="float:right;margin-bottom: 2%;" (click)="onSaveNote()" label="Add Note"></p-button><br>
+<div style="clear:both"  *ngFor="let note of noteList">
     <div>
-        <app-note [title]="note.title" [id]="note.id" [content]="note.content"></app-note>
+        <app-note [title]="note.title" [id]="note.id" [content]="note.content"></app-note><br>
     </div>
-</ng-container>
-
+</div>
 <ng-template #saveNoteModal></ng-template>
