@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Note } from 'src/app/shared/models/Note';
+import { BroadcastService } from 'src/app/shared/services/broadcast.service';
+import { NoteService } from '../../services/note.service';
+import { SaveNoteModalComponent } from '../save-note-modal/save-note-modal.component';
 
 @Component({
   selector: 'app-notes',
@@ -10,39 +13,23 @@ import { Note } from 'src/app/shared/models/Note';
 export class NotesComponent implements OnInit {
   @Input() noteList:Note[];
   @Input() contactId:number;
-  htmlContent = '';
+  @ViewChild('saveNoteModal',{read:ViewContainerRef}) saveNoteModal!:ViewContainerRef;
+  
 
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-      ],
-    customClasses: [
-      {
-        name: "quote",
-        class: "quote",
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
-      },
-    ]
-  };
-  constructor() { }
+  
+  constructor(private broadcastService:BroadcastService,private noteService:NoteService) { }
 
   ngOnInit(): void {
+    this.broadcastService.subscribe("saveNote",(res)=>console.log(res));
+  }
+
+  onSaveNote(){
+    this.saveNoteModal.clear();
+    const saveNoteModalComponent=this.saveNoteModal.createComponent(SaveNoteModalComponent);
+  }
+
+  saveNote(){
+    // this.noteService.
   }
 
 }

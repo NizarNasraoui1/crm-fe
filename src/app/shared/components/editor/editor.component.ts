@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
@@ -7,6 +7,8 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
+  @Output() noteContent=new EventEmitter<string>;
+  
   htmlContent = '';
   config: AngularEditorConfig = {
     editable: true,
@@ -19,7 +21,7 @@ export class EditorComponent implements OnInit {
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
       ['bold']
-      ],
+    ],
     customClasses: [
       {
         name: "quote",
@@ -39,6 +41,10 @@ export class EditorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  typeNoteEvent(){
+    this.noteContent.emit(this.htmlContent);
   }
 
 }

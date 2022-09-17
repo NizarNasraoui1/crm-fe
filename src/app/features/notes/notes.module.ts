@@ -7,12 +7,17 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SaveNoteModalComponent } from './components/save-note-modal/save-note-modal.component';
+import { DialogModule } from 'primeng/dialog';
+import { SaveNoteDirective } from './directives/save-note.directive';
 
 
 @NgModule({
   declarations: [
     NotesComponent,
-    NoteComponent
+    NoteComponent,
+    SaveNoteModalComponent,
+    SaveNoteDirective
   ],
   imports: [
     CommonModule,
@@ -20,7 +25,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ButtonModule,
     FormsModule,
     AngularEditorModule,
-    SharedModule
+    SharedModule,
+    DialogModule
   ],
   exports: [NotesComponent,NoteComponent]
 })
