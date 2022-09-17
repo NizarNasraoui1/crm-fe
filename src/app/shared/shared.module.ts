@@ -20,7 +20,7 @@ import { NoteComponent } from './components/note/note.component';
     PanelModule
 
   ],
-  exports:[ToastComponent,NotesComponent],
+  exports:[ToastComponent,NotesComponent,NotesComponent],
   providers:[]
 })
 export class SharedModule { }

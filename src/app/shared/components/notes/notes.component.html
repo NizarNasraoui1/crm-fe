@@ -1,1 +1,6 @@
-<app-note [title]="'title'" [id]="1" [content]="'content'"></app-note>
+
+<ng-container *ngFor="let note of noteList">
+    <div>
+        <app-note [title]="note.title" [id]="note.id" [content]="note.content"></app-note>
+    </div>
+</ng-container>

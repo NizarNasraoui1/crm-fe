@@ -47,7 +47,6 @@ export class ContactListComponent implements OnInit {
     // });
     // }
     this.contactService.getContactPage(pageRequest,searchFields).subscribe((res:FilteredPageWrapper<Contact>)=>{
-      console.log(res)
       this.contacts=[];
       this.totalRecords=res.count;
       this.contacts=res.results;

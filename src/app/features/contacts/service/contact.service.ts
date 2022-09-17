@@ -6,6 +6,7 @@ import { SearchFields } from 'src/app/shared/models/searchFields';
 import { PageRequestParams } from 'src/app/shared/models/pageRequestParams';
 import { FilteredPageWrapper } from 'src/app/shared/models/filteredPageWrapper';
 import { SearchParams } from 'src/app/shared/models/searchParams';
+import { Note } from 'src/app/shared/models/Note';
 
 const contactUrl="/api/contact";
 
@@ -32,7 +33,7 @@ export class ContactService {
   }
 
   getSearchParams():Observable<SearchParams>{
-    return this.httpUtilService.get(`${contactUrl}/searchParams`);
+    return this.httpUtilService.get(`${contactUrl}/search-params`);
   }
 
   updateContact(id:number,contact:Contact):Observable<Contact>{
@@ -41,5 +42,9 @@ export class ContactService {
 
   deleteCotnact(id:number):Observable<any>{
     return this.httpUtilService.delete(`${contactUrl}/${id}`);
+  }
+
+  getContactNotes(id:number):Observable<Note>{
+    return this.httpUtilService.get(`${contactUrl}/${id}/notes`);
   }
 }

@@ -5,6 +5,7 @@ import { HttpUtilService } from 'src/app/util/service/http-util.service';
 import { Contact } from '../../models/contact';
 import { ContactService } from '../../service/contact.service';
 import { MessageService } from 'primeng/api';
+import { Note } from 'src/app/shared/models/Note';
 
 @Component({
   selector: 'app-contact-tabs',
@@ -13,16 +14,24 @@ import { MessageService } from 'primeng/api';
 })
 export class ContactTabsComponent implements OnInit {
   contact:Contact;
+  noteList:Note[];
+  id:number;
   constructor(private route:ActivatedRoute,private contactService:ContactService,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
       let id=params.get('id');
       if(id){
-        this.contactService.getContactById(parseInt(id)).subscribe((res)=>{
-          this.contact=res;
-        })
+        this.id=parseInt(id);
+        this.getContactById(this.id);
       }
+    })
+  }
+
+  getContactById(id:number){
+    this.contactService.getContactById(this.id).subscribe((res)=>{
+      this.contact=res;
+      this.noteList=res.noteList;
     })
   }
 
