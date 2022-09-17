@@ -20,7 +20,7 @@ export class NotesComponent implements OnInit {
   constructor(private broadcastService:BroadcastService,private noteService:NoteService) { }
 
   ngOnInit(): void {
-    this.broadcastService.subscribe("saveNote",(res)=>console.log(res));
+    this.broadcastService.subscribe("saveNote",(res)=>this.saveNote(res));
   }
 
   onSaveNote(){
@@ -28,8 +28,10 @@ export class NotesComponent implements OnInit {
     const saveNoteModalComponent=this.saveNoteModal.createComponent(SaveNoteModalComponent);
   }
 
-  saveNote(){
-    // this.noteService.
+  saveNote(note:Note){
+    this.noteService.saveNote(this.contactId,note).subscribe((res)=>{
+
+    })
   }
 
 }

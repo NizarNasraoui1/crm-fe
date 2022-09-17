@@ -3,6 +3,7 @@ import { Note } from 'src/app/shared/models/Note';
 import { HttpUtilService } from 'src/app/util/service/http-util.service';
 
 const noteUrl="api/note";
+const crmBaseEntityUrl="api/note/crm-base-entity";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class NoteService {
 
   constructor(private httpUtilService: HttpUtilService) { }
 
-  saveNote(note:Note){
-    
+  saveNote(contactId:number,note:Note){
+    return this.httpUtilService.post(`${crmBaseEntityUrl}/${contactId}`,note);
   }
 
   deleteNoteByid(id:number){

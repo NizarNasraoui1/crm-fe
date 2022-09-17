@@ -9,6 +9,7 @@ import { BroadcastService } from 'src/app/shared/services/broadcast.service';
 export class SaveNoteModalComponent implements OnInit {
   displaySaveModal: boolean=true;
   noteContent:string;
+  noteTitle:string;
   constructor(private broadcastService:BroadcastService) { }
 
   ngOnInit(): void {
@@ -19,8 +20,13 @@ export class SaveNoteModalComponent implements OnInit {
     this.noteContent=noteContent;
   }
 
+  hundleNoteTitleChange(noteTitle:string){
+    this.noteTitle=noteTitle;
+  }
+
   onSave(){
-    this.broadcastService.boradcast("saveNote",this.noteContent);
+    this.noteContent=this.noteContent;
+    this.broadcastService.boradcast("saveNote",{content:this.noteContent});
     this.displaySaveModal=false;
   }
 }
