@@ -5,22 +5,34 @@ import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import {RippleModule} from 'primeng/ripple'
 import { MessageService } from 'primeng/api';
-import { NotesComponent } from './components/notes/notes.component';
 import {PanelModule} from 'primeng/panel';
-import { NoteComponent } from './components/note/note.component';
+import { EditorComponent } from './components/editor/editor.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MultiSelect, MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
-  declarations: [ToastComponent, NotesComponent, NoteComponent],
+  declarations: [ToastComponent, EditorComponent,SearchBarComponent],
   imports: [
     ButtonModule,
     RippleModule,
     CommonModule,
     RippleModule,
     ToastModule,
-    PanelModule
+    PanelModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MultiSelectModule,
+    DropdownModule,
+    InputTextModule,
+    AngularEditorModule
+    
 
   ],
-  exports:[ToastComponent,NotesComponent,NotesComponent],
+  exports:[ToastComponent,EditorComponent,SearchBarComponent],
   providers:[]
 })
 export class SharedModule { }

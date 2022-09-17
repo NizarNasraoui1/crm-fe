@@ -36,16 +36,6 @@ export class ContactListComponent implements OnInit {
   }
 
   getContactPage(pageRequest:PageRequestParams,searchFields:SearchFields){
-    // if(searchFields){
-    //   this.contactService.getContactPage(pageRequest,searchFields).subscribe((res:FilteredPageWrapper<Contact>)=>{
-    //     this.contacts=res.results;
-    // });
-    // }
-    // else{
-    //   this.contactService.getContactPage(pageRequest).subscribe((res:FilteredPageWrapper<Contact>)=>{
-    //     this.contacts=res.results;
-    // });
-    // }
     this.contactService.getContactPage(pageRequest,searchFields).subscribe((res:FilteredPageWrapper<Contact>)=>{
       this.contacts=[];
       this.totalRecords=res.count;
@@ -61,14 +51,16 @@ export class ContactListComponent implements OnInit {
   }
 
   deleteContact(id:number){
-    this.contactService.deleteCotnact(id).subscribe((res)=>{
-      this.messageService.add({severity:'success', summary: 'Success', detail: 'Deleted Succefully'});
-      let pageRequest = new PageRequestParams(0, 10);
-      this.getContactPage(pageRequest,this.searchFields);
-    },
-    (error)=>{
+    this.contactService.deleteCotnact(id).subscribe({
+      next: ()=>{
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Deleted Succefully'});
+        let pageRequest = new PageRequestParams(0, 10);
+        this.getContactPage(pageRequest,this.searchFields);
+      },
+    error: ()=>{
       this.messageService.add({severity:'error', summary: 'Warn', detail: 'Delete fails'});
-    })
+    }
+  });
   }
 
   onSearchFormChange(searchForm:SearchForm){

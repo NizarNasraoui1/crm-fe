@@ -27,7 +27,10 @@ export class HttpUtilService {
         return this.http.put(url,body);
     }
 
-    delete(url:string):Observable<any>{
+    delete(url:string,id?:number):Observable<any>{
+        if(id){
+            return this.http.delete(`${url}/${id}`);
+        }
         return this.http.delete(url);
     }
 
