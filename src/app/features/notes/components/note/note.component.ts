@@ -9,9 +9,8 @@ import { NoteService } from '../../services/note.service';
   styleUrls: ['./note.component.scss']
 })
 export class NoteComponent implements OnInit {
-  @Input() id:number;
-  @Input() title:string;
-  @Input() content:string;
+
+  @Input() note:Note;
   @Output() openUpdateNoteEvent=new EventEmitter<Note>;
   @Output() noteUpdatedEvent=new EventEmitter<any>;
 
@@ -21,11 +20,11 @@ export class NoteComponent implements OnInit {
   }
 
   onUpdate(){
-    this.openUpdateNoteEvent.emit(new Note(this.id,this.title,this.content));
+    this.openUpdateNoteEvent.emit(new Note(this.note.id,this.note.title,this.note.content));
   }
 
   onDelete(){
-    this.noteService.deleteNoteByid(this.id).subscribe({
+    this.noteService.deleteNoteByid(this.note.id).subscribe({
       next:()=> {
         this.messageService.add({severity:'success', summary: 'Success', detail: 'Deleted Succefully'});
         this.noteUpdatedEvent.emit();

@@ -56,7 +56,7 @@ export class NotesComponent implements OnInit {
 
   
 
-  onUpdateNote(note:Note){
+  openUpdateNote(note:Note){
     this.saveNoteModal.clear();
     const saveNoteModalComponent=this.saveNoteModal.createComponent(SaveNoteModalComponent);
     saveNoteModalComponent.instance.updateNoteComponent=true;
