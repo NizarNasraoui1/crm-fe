@@ -16,6 +16,10 @@ export class NoteService {
     return this.httpUtilService.post(`${crmBaseEntityUrl}/${contactId}`,note);
   }
 
+  updateNote(note:Note){
+    return this.httpUtilService.put(`${noteUrl}/${note.id}`,note);
+  }
+
   deleteNoteByid(id:number){
     return this.httpUtilService.delete(noteUrl,id);
   }

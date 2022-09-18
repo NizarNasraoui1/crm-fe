@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output,Input } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { Note } from '../../models/Note';
 
 @Component({
   selector: 'app-editor',
@@ -7,7 +8,8 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
-  @Output() noteContent=new EventEmitter<string>;
+  @Input() note:Note;
+  @Output() noteContentChangeEvent=new EventEmitter<string>;
   
   htmlContent = '';
   config: AngularEditorConfig = {
@@ -41,10 +43,11 @@ export class EditorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.htmlContent=this.note?.content;
   }
 
   typeNoteEvent(){
-    this.noteContent.emit(this.htmlContent);
+    this.noteContentChangeEvent.emit(this.htmlContent);
   }
 
 }

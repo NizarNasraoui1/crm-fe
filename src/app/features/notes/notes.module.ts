@@ -10,6 +10,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SaveNoteModalComponent } from './components/save-note-modal/save-note-modal.component';
 import { DialogModule } from 'primeng/dialog';
 import { SaveNoteDirective } from './directives/save-note.directive';
+import {InputTextModule} from 'primeng/inputtext';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SaveNoteDirective } from './directives/save-note.directive';
     FormsModule,
     AngularEditorModule,
     SharedModule,
-    DialogModule
+    DialogModule,
+    InputTextModule
   ],
   exports: [NotesComponent,NoteComponent]
 })

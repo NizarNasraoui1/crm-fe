@@ -23,7 +23,10 @@ export class HttpUtilService {
         return this.http.post(url,body,{params});
     }
 
-    put(url:string,body:any):Observable<any>{
+    put(url:string,body:any,id?:number):Observable<any>{
+        if(id){
+            return this.http.put(`${url}/${id}`,body);
+        }
         return this.http.put(url,body);
     }
 

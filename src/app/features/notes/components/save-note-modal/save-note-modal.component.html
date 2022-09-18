@@ -1,8 +1,13 @@
 <p-dialog header="Note" [(visible)]="displaySaveModal" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
     
-
-    <app-editor (noteContent)="hundleNoteContentChange($event)"></app-editor>
+    <div class="title">
+        <p>Title:</p><input [placeholder]="this.title" [(ngModel)]="title" [ngStyle]="{'height':'5vh'}" type="text" pInputText />
+    </div>
+    <div class="content">
+        <p>Content: </p>
+        <app-editor [note]="note"  (noteContentChangeEvent)="hundleNoteContentChange($event)"></app-editor>
+    </div>
 
         <ng-template pTemplate="footer">
             <p-button icon="pi pi-check" (click)="onSave()" label="Save" class="p-button-text"></p-button>

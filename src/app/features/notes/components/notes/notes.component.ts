@@ -20,10 +20,16 @@ export class NotesComponent implements OnInit {
   constructor(private broadcastService:BroadcastService,private noteService:NoteService) { }
 
   ngOnInit(): void {
-    this.broadcastService.subscribe("saveNote",(res)=>this.saveNote(res));
+    this.subscribeToSaveNoteEvents();
   }
 
-  onSaveNote(){
+  subscribeToSaveNoteEvents(){
+    this.broadcastService.subscribe("saveNote",(note)=>this.saveNote(note));
+    this.broadcastService.subscribe("updateNote",(note)=>this.updateNote(note));
+    
+  }
+
+  onAddNote(){
     this.saveNoteModal.clear();
     const saveNoteModalComponent=this.saveNoteModal.createComponent(SaveNoteModalComponent);
   }
@@ -32,6 +38,22 @@ export class NotesComponent implements OnInit {
     this.noteService.saveNote(this.contactId,note).subscribe((res)=>{
 
     })
+  }
+
+  updateNote(note:Note){
+    this.noteService.updateNote(note).subscribe((res)=>{
+
+    })
+  }
+
+  
+
+  onUpdateNote(note:Note){
+    this.saveNoteModal.clear();
+    const saveNoteModalComponent=this.saveNoteModal.createComponent(SaveNoteModalComponent);
+    saveNoteModalComponent.instance.updateNoteComponent=true;
+    saveNoteModalComponent.instance.note=note;
+
   }
 
 }

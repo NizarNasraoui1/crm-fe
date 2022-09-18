@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit,Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { Note } from 'src/app/shared/models/Note';
 import { NoteService } from '../../services/note.service';
 
 @Component({
@@ -11,14 +12,15 @@ export class NoteComponent implements OnInit {
   @Input() id:number;
   @Input() title:string;
   @Input() content:string;
-  
+  @Output() updateNoteEvent=new EventEmitter<Note>;
+
   constructor(private noteService:NoteService,private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
 
   onUpdate(){
-    console.log("update");
+    this.updateNoteEvent.emit(new Note(this.id,this.title,this.content));
   }
 
   onDelete(){
