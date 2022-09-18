@@ -12,7 +12,8 @@ export class NoteComponent implements OnInit {
   @Input() id:number;
   @Input() title:string;
   @Input() content:string;
-  @Output() updateNoteEvent=new EventEmitter<Note>;
+  @Output() openUpdateNoteEvent=new EventEmitter<Note>;
+  @Output() noteUpdatedEvent=new EventEmitter<any>;
 
   constructor(private noteService:NoteService,private messageService: MessageService) { }
 
@@ -20,13 +21,14 @@ export class NoteComponent implements OnInit {
   }
 
   onUpdate(){
-    this.updateNoteEvent.emit(new Note(this.id,this.title,this.content));
+    this.openUpdateNoteEvent.emit(new Note(this.id,this.title,this.content));
   }
 
   onDelete(){
     this.noteService.deleteNoteByid(this.id).subscribe({
       next:()=> {
         this.messageService.add({severity:'success', summary: 'Success', detail: 'Deleted Succefully'});
+        this.noteUpdatedEvent.emit();
       },
       error: ()=>{
         this.messageService.add({severity:'error', summary: 'Warn', detail: 'Delete fails'});

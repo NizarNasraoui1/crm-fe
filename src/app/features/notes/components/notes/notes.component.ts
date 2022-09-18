@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { MessageService } from 'primeng/api';
 import { Note } from 'src/app/shared/models/Note';
 import { BroadcastService } from 'src/app/shared/services/broadcast.service';
 import { NoteService } from '../../services/note.service';
@@ -14,10 +15,10 @@ export class NotesComponent implements OnInit {
   @Input() noteList:Note[];
   @Input() contactId:number;
   @ViewChild('saveNoteModal',{read:ViewContainerRef}) saveNoteModal!:ViewContainerRef;
-  
+  @Output() noteListUpdatedEvent=new EventEmitter<any>;
 
   
-  constructor(private broadcastService:BroadcastService,private noteService:NoteService) { }
+  constructor(private broadcastService:BroadcastService,private noteService:NoteService,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.subscribeToSaveNoteEvents();
@@ -36,14 +37,21 @@ export class NotesComponent implements OnInit {
 
   saveNote(note:Note){
     this.noteService.saveNote(this.contactId,note).subscribe((res)=>{
-
+      this.messageService.add({severity:'info', summary: 'Info', detail: 'Note Saved Succefully'});
+      this.noteListUpdatedEvent.emit();
+      this.onNoteListUpdated();
     })
   }
 
   updateNote(note:Note){
     this.noteService.updateNote(note).subscribe((res)=>{
-
+      this.messageService.add({severity:'info', summary: 'Info', detail: 'Note Updated Succefully'});
+      this.onNoteListUpdated();
     })
+  }
+
+  onNoteListUpdated(){
+    this.noteListUpdatedEvent.emit();
   }
 
   
@@ -54,6 +62,10 @@ export class NotesComponent implements OnInit {
     saveNoteModalComponent.instance.updateNoteComponent=true;
     saveNoteModalComponent.instance.note=note;
 
+  }
+
+  onDeletedNote(){
+    this.onNoteListUpdated();
   }
 
 }

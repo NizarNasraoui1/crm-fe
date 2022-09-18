@@ -46,6 +46,10 @@ export class ContactTabsComponent implements OnInit {
     })
   }
 
+  onNoteUpdated(){
+    this.getContactById(this.id);
+  }
+
 
 
 
