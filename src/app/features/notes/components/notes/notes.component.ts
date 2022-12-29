@@ -1,6 +1,8 @@
+import { OnDestroy } from '@angular/core';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { Note } from 'src/app/shared/models/Note';
 import { BroadcastService } from 'src/app/shared/services/broadcast.service';
 import { NoteService } from '../../services/note.service';
@@ -11,23 +13,28 @@ import { SaveNoteModalComponent } from '../save-note-modal/save-note-modal.compo
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
-export class NotesComponent implements OnInit {
+export class NotesComponent implements OnInit,OnDestroy {
   @Input() noteList:Note[];
   @Input() contactId:number;
   @ViewChild('saveNoteModal',{read:ViewContainerRef}) saveNoteModal!:ViewContainerRef;
   @Output() noteListUpdatedEvent=new EventEmitter<any>;
+  saveSubscription:Subscription;
+  updateSubscription:Subscription;
 
-  
+
+
   constructor(private broadcastService:BroadcastService,private noteService:NoteService,private messageService: MessageService) { }
 
+
   ngOnInit(): void {
+    console.log(this.contactId)
     this.subscribeToSaveNoteEvents();
   }
 
   subscribeToSaveNoteEvents(){
-    this.broadcastService.subscribe("saveNote",(note)=>this.saveNote(note));
-    this.broadcastService.subscribe("updateNote",(note)=>this.updateNote(note));
-    
+    this.saveSubscription=this.broadcastService.subscribe("saveNote",(note)=>this.saveNote(note));
+    this.updateSubscription=this.broadcastService.subscribe("updateNote",(note)=>this.updateNote(note));
+
   }
 
   onAddNote(){
@@ -54,7 +61,7 @@ export class NotesComponent implements OnInit {
     this.noteListUpdatedEvent.emit();
   }
 
-  
+
 
   openUpdateNote(note:Note){
     this.saveNoteModal.clear();
@@ -67,5 +74,10 @@ export class NotesComponent implements OnInit {
   onDeletedNote(){
     this.onNoteListUpdated();
   }
+
+  ngOnDestroy(): void {
+    this.saveSubscription.unsubscribe();
+    this.updateSubscription.unsubscribe();
+}
 
 }
