@@ -11,6 +11,7 @@ import { SaveNoteModalComponent } from './components/save-note-modal/save-note-m
 import { DialogModule } from 'primeng/dialog';
 import { SaveNoteDirective } from './directives/save-note.directive';
 import {InputTextModule} from 'primeng/inputtext';
+import { NoteService } from './services/note.service';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {InputTextModule} from 'primeng/inputtext';
     DialogModule,
     InputTextModule
   ],
-  exports: [NotesComponent,NoteComponent]
+  exports: [NotesComponent,NoteComponent],
+  providers: [NoteService]
 })
 export class NotesModule { }

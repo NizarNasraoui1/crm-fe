@@ -5,9 +5,7 @@ import { HttpUtilService } from 'src/app/util/service/http-util.service';
 const noteUrl="api/note";
 const crmBaseEntityUrl="api/note/crm-base-entity";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class NoteService {
 
   constructor(private httpUtilService: HttpUtilService) { }
