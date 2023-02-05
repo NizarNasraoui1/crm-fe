@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginForm } from 'src/app/shared/models/loginForm';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { TokenStorageService } from './token-storage.service';
 
 const AUTH_API = 'http://localhost:8080';

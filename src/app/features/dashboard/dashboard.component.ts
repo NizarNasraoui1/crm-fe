@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { Statistics } from './model/statistics';
+import { DashboardService } from './service/dashboard.service';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -17,10 +19,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     subscription!: Subscription;
 
-    constructor(public layoutService: LayoutService) {
+    statistics$:Observable<any>;
+    constructor(public layoutService: LayoutService,public dashboardService:DashboardService) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
             this.initChart();
         });
+        this.statistics$=this.dashboardService.getStatistics();
+        console.log(this.statistics$)
+        this.dashboardService.getStatistics().subscribe((res)=>{
+            console.log(res)
+        })
     }
 
     ngOnInit() {
