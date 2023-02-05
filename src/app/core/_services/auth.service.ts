@@ -31,6 +31,10 @@ export class AuthService {
         .post('api/login', body.toString(), options);
   }
 
+  logOut(){
+    this.tokenStorageService.signOut();
+  }
+
   register(user:any): Observable<any> {
     return this.http.post(AUTH_API + 'signup', {
       username: user.username,
