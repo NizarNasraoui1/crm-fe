@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { NotfoundComponent } from './features/notfound/notfound.component';
+import { AuthGardService as AuthGard}  from './core/_services/auth-gard.service';
 
 @NgModule({
     imports: [
@@ -12,6 +13,8 @@ import { NotfoundComponent } from './features/notfound/notfound.component';
                     { path: '', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     {path: 'contact',loadChildren: ()=> import('../app/features/contacts/contacts.module').then(m => m.ContactsModule)}
                 ],
+                canActivate:[AuthGard]
+
             },
             { path: 'auth', loadChildren: () => import('./core/auth/auth.module').then(m => m.AuthModule) },
             { path: 'pages/notfound', component: NotfoundComponent },

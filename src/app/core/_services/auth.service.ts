@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginForm } from 'src/app/shared/models/loginForm';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { TokenStorageService } from './token-storage.service';
 
 const AUTH_API = 'http://localhost:8080';
 
@@ -14,7 +16,7 @@ const httpOptions = {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private tokenStorageService:TokenStorageService) { }
 
   login(loginForm:LoginForm): Observable<any> {
 
@@ -36,5 +38,11 @@ export class AuthService {
       email: user.email,
       password: user.password
     }, httpOptions);
+  }
+
+  isAuthenticated():boolean{
+    const token=this.tokenStorageService.getToken();
+    if(!token) return false;
+    return true;
   }
 }
