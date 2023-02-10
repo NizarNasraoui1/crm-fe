@@ -19,16 +19,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     subscription!: Subscription;
 
-    statistics$:Observable<any>;
+    statistics$:Observable<Statistics>;
+
+    notifications$:Observable<any>;
+
     constructor(public layoutService: LayoutService,public dashboardService:DashboardService) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
             this.initChart();
         });
         this.statistics$=this.dashboardService.getStatistics();
-        console.log(this.statistics$)
-        this.dashboardService.getStatistics().subscribe((res)=>{
-            console.log(res)
-        })
+        this.notifications$=this.dashboardService.getLastNotifications();
+
     }
 
     ngOnInit() {

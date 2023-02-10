@@ -18,7 +18,7 @@ import { AddContactComponent } from './components/add-contact/add-contact.compon
 import {CardModule} from 'primeng/card';
 import { MultiSelectModule } from "primeng/multiselect";
 import { NotesModule } from '../notes/notes.module';
-
+import { FilesModule } from '../files/files.module';
 @NgModule({
   declarations: [
     ContactListComponent,
@@ -40,7 +40,8 @@ import { NotesModule } from '../notes/notes.module';
     ReactiveFormsModule,
     CardModule,
     MultiSelectModule,
-    NotesModule
+    NotesModule,
+    FilesModule
 
   ],
   providers: []

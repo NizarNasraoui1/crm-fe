@@ -4,6 +4,7 @@ import { HttpUtilService } from 'src/app/util/service/http-util.service';
 import { Statistics } from '../model/statistics';
 
 const contactUrl="/api/statistics";
+const notificationUrl="/api/notification"
 
 @Injectable()
 export class DashboardService {
@@ -12,5 +13,9 @@ export class DashboardService {
 
   getStatistics():Observable<Statistics>{
     return this.httpUtil.get(contactUrl);
+  }
+
+  getLastNotifications():Observable<Notification>{
+    return this.httpUtil.get(notificationUrl+"/last");
   }
 }
