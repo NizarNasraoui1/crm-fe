@@ -7,6 +7,10 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
   styleUrls: ['./opportunity-list.component.scss']
 })
 export class OpportunityListComponent implements OnInit {
+    firstContactList=['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+    meetingScheduledList=['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+    proposalList=['Get up'];
+    closedList=['Brush teeth'];
 
   constructor() { }
 
