@@ -11,7 +11,8 @@ import { AuthGardService as AuthGard}  from './core/_services/auth-gard.service'
                 path: '', component: AppLayoutComponent,
                 children: [
                     { path: '', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
-                    {path: 'contact',loadChildren: ()=> import('../app/features/contacts/contacts.module').then(m => m.ContactsModule)}
+                    {path: 'contact',loadChildren: ()=> import('../app/features/contacts/contacts.module').then(m => m.ContactsModule)},
+                    {path: 'opportunities',loadChildren: () => import('./features/opportunities/opportunities.module').then(m => m.OpportunitiesModule)},
                 ],
                 canActivate:[AuthGard]
 

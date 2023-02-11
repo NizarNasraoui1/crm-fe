@@ -9,6 +9,8 @@ import { AuthService } from './core/_services/auth.service';
 import { HttpUtilService } from './util/service/http-util.service';
 import { SharedModule } from './shared/shared.module';
 import { MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OpportunitiesModule } from './features/opportunities/opportunities.module';
 
 @NgModule({
     declarations: [
@@ -17,7 +19,9 @@ import { MessageService } from 'primeng/api';
     imports: [
         AppRoutingModule,
         AppLayoutModule,
-        SharedModule
+        SharedModule,
+        BrowserAnimationsModule,
+        OpportunitiesModule
 
     ],
     providers: [
