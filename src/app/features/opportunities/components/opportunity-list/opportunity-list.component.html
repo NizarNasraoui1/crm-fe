@@ -6,7 +6,17 @@
             [cdkDropListConnectedTo]="[meetingScheduled,proposals,closed]" class="example-list" (cdkDropListDropped)="drop($event)">
             <div class="example-box" *ngFor="let item of firstContactList" cdkDrag>
                 <mat-card style="margin-bottom: 2%;">
-                    <mat-card-content >{{item}}</mat-card-content>
+                    <mat-card-content >
+                        <p><span style="font-weight: bold;">Name:</span> {{item.name}}</p>
+                        <p >
+                            <span style="font-weight: bold;">Related to:</span>
+                            <span *ngFor="let contact of item.contacts">
+                                <p (click)="navigateToContactDetails(contact.id)">{{contact.firstName}}</p>
+                            </span>
+                        </p>
+
+
+                    </mat-card-content>
                 </mat-card>
             </div>
         </div>
@@ -23,7 +33,9 @@
                 [cdkDropListConnectedTo]="[firstContact,proposals,closed]" class="example-list" (cdkDropListDropped)="drop($event)">
                 <div class="example-box"  *ngFor="let item of meetingScheduledList" cdkDrag>
                     <mat-card style="margin-bottom: 2%;">
-                        <mat-card-content>{{item}}</mat-card-content>
+                        <mat-card-content >
+                            <p>Name: {{item.name}}</p>
+                        </mat-card-content>
                     </mat-card>
                 </div>
             </div>
@@ -38,9 +50,9 @@
                 <div cdkDropList #proposals="cdkDropList" [cdkDropListData]="proposalList"
                     [cdkDropListConnectedTo]="[closed,firstContact,meetingScheduled]" class="example-list" (cdkDropListDropped)="drop($event)">
                     <div class="example-box" *ngFor="let item of proposalList" cdkDrag>
-                        <mat-card style="margin-bottom: 2%;">
-                            <mat-card-content>{{item}}</mat-card-content>
-                        </mat-card>
+                        <mat-card-content >
+                            <p>Name: {{item.name}}</p>
+                        </mat-card-content>
                     </div>
                 </div>
         </mat-card-content>
@@ -55,7 +67,9 @@
                         [cdkDropListConnectedTo]="[proposals,meetingScheduled,firstContact]" class="example-list" (cdkDropListDropped)="drop($event)">
                         <div class="example-box" *ngFor="let item of closedList" cdkDrag>
                             <mat-card style="margin-bottom: 2%;">
-                                <mat-card-content>{{item}}</mat-card-content>
+                                <mat-card-content >
+                                    <p>Name: {{item.name}}</p>
+                                </mat-card-content>
                             </mat-card>
                         </div>
                     </div>

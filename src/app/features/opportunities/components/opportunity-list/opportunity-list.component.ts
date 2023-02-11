@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { OpportunityService } from '../../services/opportunity.service';
 import { Opportunity } from '../../models/opportunity';
+import { OpportunityStageEnum } from '../../models/opportunityStageEnum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-opportunity-list',
@@ -10,18 +12,18 @@ import { Opportunity } from '../../models/opportunity';
 })
 export class OpportunityListComponent implements OnInit {
     opportunityList:Opportunity[];
-    firstContactList=['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-    meetingScheduledList=['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
-    proposalList=['Get up'];
-    closedList=['Brush teeth'];
+    firstContactList:Opportunity[]=[];
+    meetingScheduledList:Opportunity[]=[];
+    proposalList:Opportunity[]=[];
+    closedList:Opportunity[]=[];
 
-  constructor(private opportunityService:OpportunityService) { }
+  constructor(private opportunityService:OpportunityService,private router:Router) { }
 
   ngOnInit(): void {
     this.getAllOpportunities();
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -37,8 +39,30 @@ export class OpportunityListComponent implements OnInit {
   getAllOpportunities(){
     this.opportunityService.getAllOpportunities().subscribe((res)=>{
         this.opportunityList=res;
-        console.log(res);
+        this.fillInStepLists();
     });
+  }
+
+  fillInStepLists(){
+    this.opportunityList.forEach((opportunity)=>{
+        let stage=opportunity.stage;
+        if(OpportunityStageEnum.FIRST_CONTACT===stage){
+            this.firstContactList.push(opportunity);
+        }
+        else if(OpportunityStageEnum.MEETING_SCHEDULED===stage){
+            this.meetingScheduledList.push(opportunity);
+        }
+        else if(OpportunityStageEnum.PROPOSAL){
+            this.proposalList.push(opportunity);
+        }
+        else if(OpportunityStageEnum.CLOSED){
+            this.closedList.push(opportunity);
+        }
+    });
+  }
+
+  navigateToContactDetails(contactId:number){
+    this.router.navigate(['/contact/details/',contactId])
   }
 
 }
