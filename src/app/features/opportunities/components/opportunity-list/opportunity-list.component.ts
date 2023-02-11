@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { OpportunityService } from '../../services/opportunity.service';
+import { Opportunity } from '../../models/opportunity';
 
 @Component({
   selector: 'app-opportunity-list',
@@ -7,19 +9,17 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
   styleUrls: ['./opportunity-list.component.scss']
 })
 export class OpportunityListComponent implements OnInit {
+    opportunityList:Opportunity[];
     firstContactList=['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
     meetingScheduledList=['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
     proposalList=['Get up'];
     closedList=['Brush teeth'];
 
-  constructor() { }
+  constructor(private opportunityService:OpportunityService) { }
 
   ngOnInit(): void {
+    this.getAllOpportunities();
   }
-
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -32,6 +32,13 @@ export class OpportunityListComponent implements OnInit {
         event.currentIndex,
       );
     }
+  }
+
+  getAllOpportunities(){
+    this.opportunityService.getAllOpportunities().subscribe((res)=>{
+        this.opportunityList=res;
+        console.log(res);
+    });
   }
 
 }
