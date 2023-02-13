@@ -27,7 +27,7 @@ export class ContactService {
   getContactById(id:number):Observable<Contact>{
     return this.httpUtilService.get(`${contactUrl}/${id}`);
   }
-  
+
   addContact(contact:Contact):Observable<Contact>{
     return this.httpUtilService.post(`${contactUrl}`,contact);
   }
@@ -46,5 +46,9 @@ export class ContactService {
 
   getContactNotes(id:number):Observable<Note>{
     return this.httpUtilService.get(`${contactUrl}/${id}/notes`);
+  }
+
+  searchContactDynamically(searchWord:string):Observable<any>{
+    return this.httpUtilService.get(`${contactUrl}/dynamic-search/?word-search-param=${searchWord}`);
   }
 }

@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class AddContactComponent implements OnInit {
   contactForm:FormGroup;
+
+
   constructor(private contactService:ContactService,private messageService: MessageService,
     private router:Router) {
     this.contactForm=new FormGroup({

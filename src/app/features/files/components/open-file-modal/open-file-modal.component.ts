@@ -13,8 +13,6 @@ export class OpenFileModalComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-        console.log(this.isPdf);
-        console.log(this.path);
     }
 
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { OpportunityService } from '../../services/opportunity.service';
 import { Opportunity } from '../../models/opportunity';
 import { OpportunityStageEnum } from '../../models/opportunityStageEnum';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { AddOpportunityModalComponent } from '../add-opportunity-modal/add-opportunity-modal.component';
 
 @Component({
   selector: 'app-opportunity-list',
@@ -19,6 +20,8 @@ export class OpportunityListComponent implements OnInit {
     proposalList:Opportunity[]=[];
     closedList:Opportunity[]=[];
     opportunityListSave$:Subscription;
+    @ViewChild('addOpportunityModal',{read:ViewContainerRef})
+    addOpportunityModal:ViewContainerRef;
 
   constructor(private opportunityService:OpportunityService,private router:Router) { }
 
@@ -72,6 +75,11 @@ export class OpportunityListComponent implements OnInit {
 
   navigateToContactDetails(contactId:number){
     this.router.navigate(['/contact/details/',contactId])
+  }
+
+  openAddOpportunityModal(){
+    this.addOpportunityModal.clear();
+        const openFileComponentRef = this.addOpportunityModal.createComponent(AddOpportunityModalComponent);
   }
 
 }
