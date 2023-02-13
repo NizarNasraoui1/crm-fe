@@ -61,10 +61,10 @@ export class OpportunityListComponent implements OnInit {
         else if(OpportunityStageEnum.MEETING_SCHEDULED===stage){
             this.meetingScheduledList.push(opportunity);
         }
-        else if(OpportunityStageEnum.PROPOSAL){
+        else if(OpportunityStageEnum.PROPOSAL==stage){
             this.proposalList.push(opportunity);
         }
-        else if(OpportunityStageEnum.CLOSED){
+        else if(OpportunityStageEnum.CLOSED==stage){
             this.closedList.push(opportunity);
         }
     });
