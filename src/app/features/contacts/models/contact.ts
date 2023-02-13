@@ -8,7 +8,7 @@ export class Contact{
     email:string;
     noteList:Note[];
 
-    constructor(){
-        
+    constructor(id:number){
+        this.id=id;
     }
 }

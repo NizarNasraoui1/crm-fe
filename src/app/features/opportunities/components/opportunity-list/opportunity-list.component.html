@@ -1,4 +1,4 @@
-<p-button (click)="this.openAddOpportunityModal()" label="Add Opportunity"></p-button>
+<p-button (click)="this.onViewSaveModal()" label="Add Opportunity"></p-button>
 <div class="example-container">
     <mat-card class="stepContainer">
         <mat-card-content>
@@ -96,4 +96,4 @@
         </mat-card>
         </div>
 
-        <ng-template #addOpportunityModal></ng-template>
+<app-add-opportunity-modal [displaySaveModal]="viewSaveModal" (saveAndClose)="onSaveAndCloseModal($event)"></app-add-opportunity-modal>

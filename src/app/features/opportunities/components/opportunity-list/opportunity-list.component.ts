@@ -22,6 +22,7 @@ export class OpportunityListComponent implements OnInit {
     opportunityListSave$:Subscription;
     @ViewChild('addOpportunityModal',{read:ViewContainerRef})
     addOpportunityModal:ViewContainerRef;
+    viewSaveModal:boolean=false;
 
   constructor(private opportunityService:OpportunityService,private router:Router) { }
 
@@ -42,21 +43,20 @@ export class OpportunityListComponent implements OnInit {
         event.currentIndex,
       );
     }
-
-    this.opportunityListSave$=this.opportunityService.updateOpportunities(this.firstContactList,this.meetingScheduledList,this.proposalList,this.closedList).subscribe((res)=>{console.log(res)});
-
+    this.opportunityListSave$=this.opportunityService.updateOpportunities(this.firstContactList,this.meetingScheduledList,this.proposalList,this.closedList).subscribe((res)=>{});
   }
 
   getAllOpportunities(){
     this.opportunityService.getAllOpportunities().subscribe((res)=>{
-        this.opportunityList=res;
+        this.opportunityList=[];
+        this.opportunityList=[...res];
         this.fillInStepLists();
     });
   }
 
   fillInStepLists(){
+    this.initLists();
     this.opportunityList.forEach((opportunity)=>{
-        console.log(this.opportunityList)
         let stage=opportunity.stage;
         if(OpportunityStageEnum.FIRST_CONTACT===stage){
             this.firstContactList.push(opportunity);
@@ -73,6 +73,14 @@ export class OpportunityListComponent implements OnInit {
     });
   }
 
+  initLists(){
+    this.firstContactList=[];
+    this.meetingScheduledList=[];
+    this.proposalList=[];
+    this.closedList=[];
+
+  }
+
   navigateToContactDetails(contactId:number){
     this.router.navigate(['/contact/details/',contactId])
   }
@@ -80,6 +88,15 @@ export class OpportunityListComponent implements OnInit {
   openAddOpportunityModal(){
     this.addOpportunityModal.clear();
         const openFileComponentRef = this.addOpportunityModal.createComponent(AddOpportunityModalComponent);
+  }
+
+  onViewSaveModal(){
+    this.viewSaveModal=true;
+  }
+
+  onSaveAndCloseModal(event:any){
+    this.viewSaveModal=false;
+    this.getAllOpportunities();
   }
 
 }

@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ContactService } from 'src/app/features/contacts/service/contact.service';
 import { Opportunity } from '../../models/opportunity';
 import { OpportunityService } from '../../services/opportunity.service';
 import {Contact} from '../../../contacts/models/contact';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-add-opportunity-modal',
     templateUrl: './add-opportunity-modal.component.html',
     styleUrls: ['./add-opportunity-modal.component.scss'],
 })
-export class AddOpportunityModalComponent implements OnInit {
-    displaySaveModal = true;
+export class AddOpportunityModalComponent implements OnInit,OnDestroy {
+    @Input() displaySaveModal = false;
+    @Output() saveAndClose=new EventEmitter<any>();
     filteredContacts: any[];
     selectedContacts: any[];
     searchWord:string;
     opportunityName:string;
-    constructor(private contactService:ContactService) {}
+    saveOpportunitySubscription$:Subscription;
+
+    constructor(private contactService:ContactService,private opportunityService:OpportunityService) {}
 
     ngOnInit(): void {}
 
@@ -27,17 +31,12 @@ export class AddOpportunityModalComponent implements OnInit {
     }
 
     saveOpportunity(){
-        console.log(this.selectedContacts)
-        const opportunity:Opportunity={};
-        opportunity.name=this.opportunityName;
-        const contactList:Contact[]=[];
-        this.selectedContacts.forEach((contact)=>{
-            const newContact:Contact=new Contact();
-            contact.id=contact.id;
-            contactList.push(newContact);
-        });
-        opportunity.contacts=contactList;
-        console.log(opportunity);
-        console.log(opportunity.contacts)
+        this.saveOpportunitySubscription$=this.opportunityService.saveNewOpportunity(this.opportunityName,this.selectedContacts).subscribe((opportunity)=>{
+            this.saveAndClose.emit();
+        })
+    }
+
+    ngOnDestroy(): void {
+        this.saveOpportunitySubscription$.unsubscribe();
     }
 }
