@@ -4,6 +4,7 @@ import { OpportunityService } from '../../services/opportunity.service';
 import { Opportunity } from '../../models/opportunity';
 import { OpportunityStageEnum } from '../../models/opportunityStageEnum';
 import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-opportunity-list',
@@ -11,11 +12,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./opportunity-list.component.scss']
 })
 export class OpportunityListComponent implements OnInit {
+    opportunity:Opportunity={};
     opportunityList:Opportunity[];
     firstContactList:Opportunity[]=[];
     meetingScheduledList:Opportunity[]=[];
     proposalList:Opportunity[]=[];
     closedList:Opportunity[]=[];
+    opportunityListSave$:Subscription;
 
   constructor(private opportunityService:OpportunityService,private router:Router) { }
 
@@ -25,8 +28,10 @@ export class OpportunityListComponent implements OnInit {
 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
+
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -34,6 +39,9 @@ export class OpportunityListComponent implements OnInit {
         event.currentIndex,
       );
     }
+
+    this.opportunityListSave$=this.opportunityService.updateOpportunities(this.firstContactList,this.meetingScheduledList,this.proposalList,this.closedList).subscribe((res)=>{console.log(res)});
+
   }
 
   getAllOpportunities(){
@@ -45,6 +53,7 @@ export class OpportunityListComponent implements OnInit {
 
   fillInStepLists(){
     this.opportunityList.forEach((opportunity)=>{
+        console.log(this.opportunityList)
         let stage=opportunity.stage;
         if(OpportunityStageEnum.FIRST_CONTACT===stage){
             this.firstContactList.push(opportunity);
