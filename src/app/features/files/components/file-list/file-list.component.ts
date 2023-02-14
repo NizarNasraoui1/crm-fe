@@ -18,13 +18,17 @@ export class FileListComponent implements OnInit {
     // src= './assets/files/photo.png';
     // src:string = './assets/files/talan.pdf';
     constructor(
-        private FileService: FileService,
+        private fileService: FileService,
         private router: Router,
         private http: HttpClient
     ) {}
 
     ngOnInit(): void {
-        this.FileService.getFileList(this.crmBaseEntityId).subscribe((res) => {
+        this.getFileList();
+    }
+
+    getFileList(){
+        this.fileService.getFileList(this.crmBaseEntityId).subscribe((res) => {
             this.files = res;
         });
     }
@@ -64,20 +68,12 @@ export class FileListComponent implements OnInit {
     }
 
     uploadFile(event:any) {
-        console.log("here")
-        const file = event.target.files[0];
-        const url = `/api/file/upload/crm-base-entity/30`;
-        const formData = new FormData();
-        formData.append('file', file);
-        const headers = new HttpHeaders();
-        headers.append('Content-Type', 'multipart/form-data');
-        this.http.post(url, formData, { headers }).subscribe(
-          response => {
-            console.log('File uploaded successfully');
-          },
-          error => {
-            console.error('Error uploading file:', error);
-          }
-        );
+        this.fileService.uploadFile(event.target.files[0],this.crmBaseEntityId).subscribe((res)=>{
+        });
+        setTimeout(() => {
+            this.files=[];
+            this.getFileList();
+        }, 1000);
       }
+
 }
