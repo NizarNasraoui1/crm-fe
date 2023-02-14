@@ -101,7 +101,7 @@ export class OpportunityListComponent implements OnInit {
   deleteOpportunity(opportunity:Opportunity){
     if(opportunity.id){
         this.opportunityService.deleteOpportunity(opportunity.id).subscribe(()=>{
-
+            this.getAllOpportunities();
         })
     }
   }

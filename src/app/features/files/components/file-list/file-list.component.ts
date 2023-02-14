@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileService } from '../../services/file.service';
@@ -43,7 +43,6 @@ export class FileListComponent implements OnInit {
         if (this.isPdf(fileName)) {
             this.onOpenPdf(openFileComponentRef);
             openFileComponentRef.instance.isPdf = true;
-            console.log('pdf');
         }
         else {
             this.onOpenImage(openFileComponentRef);
@@ -63,4 +62,22 @@ export class FileListComponent implements OnInit {
     onOpenImage(openFileComponentRef: any) {
         openFileComponentRef.instance.pdf = false;
     }
+
+    uploadFile(event:any) {
+        console.log("here")
+        const file = event.target.files[0];
+        const url = `/api/file/upload/crm-base-entity/30`;
+        const formData = new FormData();
+        formData.append('file', file);
+        const headers = new HttpHeaders();
+        headers.append('Content-Type', 'multipart/form-data');
+        this.http.post(url, formData, { headers }).subscribe(
+          response => {
+            console.log('File uploaded successfully');
+          },
+          error => {
+            console.error('Error uploading file:', error);
+          }
+        );
+      }
 }
