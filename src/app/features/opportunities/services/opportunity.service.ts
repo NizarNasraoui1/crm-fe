@@ -16,6 +16,7 @@ export class OpportunityService {
     getAllOpportunities(): Observable<Opportunity[]> {
         return this.httpUtil.get(opportunityUrl + '/all');
     }
+
     updateOpportunities(
         firstContactList: Opportunity[],
         meetingScheduledList: Opportunity[],
@@ -43,6 +44,7 @@ export class OpportunityService {
         });
         return this.httpUtil.put(opportunityUrl + '/all', opportunityList);
     }
+
     saveNewOpportunity(opportunityName:string, selectedContacts:Contact[]):Observable<Opportunity> {
         const opportunity: Opportunity = {};
         opportunity.name = opportunityName;
@@ -55,5 +57,9 @@ export class OpportunityService {
             opportunity.contacts = contactList;
         }
         return this.httpUtil.post(opportunityUrl,opportunity);
+    }
+
+    deleteOpportunity(id:number):Observable<any>{
+        return this.httpUtil.delete(`${opportunityUrl}/${id}`);
     }
 }

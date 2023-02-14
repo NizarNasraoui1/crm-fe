@@ -8,6 +8,7 @@
             <div class="example-box" *ngFor="let item of firstContactList" cdkDrag>
                 <mat-card style="margin-bottom: 2%;">
                     <mat-card-content >
+                        <p style="float:right;color:red;font-style: bold;" (click)="deleteOpportunity(item)">X</p>
                         <p style="font-weight: bold;color:rgba(255, 166, 0, 0.589)">Name:</p>
                         <p> {{item.name}}</p>
                         <p >

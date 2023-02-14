@@ -98,5 +98,12 @@ export class OpportunityListComponent implements OnInit {
     this.viewSaveModal=false;
     this.getAllOpportunities();
   }
+  deleteOpportunity(opportunity:Opportunity){
+    if(opportunity.id){
+        this.opportunityService.deleteOpportunity(opportunity.id).subscribe(()=>{
+
+        })
+    }
+  }
 
 }
