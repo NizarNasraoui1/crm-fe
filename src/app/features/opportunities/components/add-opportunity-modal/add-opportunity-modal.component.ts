@@ -37,6 +37,8 @@ export class AddOpportunityModalComponent implements OnInit,OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.saveOpportunitySubscription$.unsubscribe();
+        if(this.saveOpportunitySubscription$){
+            this.saveOpportunitySubscription$.unsubscribe();
+        }
     }
 }

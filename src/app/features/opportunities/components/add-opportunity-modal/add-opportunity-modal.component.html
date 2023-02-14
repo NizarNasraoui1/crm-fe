@@ -1,19 +1,18 @@
 <p-dialog header="Add Opportunity" [(visible)]="displaySaveModal" [modal]="true" [style]="{width: '80vw',height:'40vh'}" [maximizable]="true" [baseZIndex]="10000"
 [draggable]="false" [resizable]="false">
 
-<div class="field col">
-    <label style="margin-right: 1%;" htmlFor="firstName">Name</label>
-    <input [(ngModel)]="opportunityName" pInputText id="firstName" type="text"/>
-</div>
 
-<span class="p-fluid">
-    <p-autoComplete [(ngModel)]="selectedContacts" [suggestions]="filteredContacts" (completeMethod)="filterOpportunities($event)" field="content" [multiple]="true">
+    <label style="margin-right: 1%;" htmlFor="firstName">Name:</label>
+    <input  style="margin-bottom: 2%;"  [(ngModel)]="opportunityName" pInputText id="firstName" type="text"/>
+
+
+<p>
+    Contacts: <p-autoComplete  [(ngModel)]="selectedContacts" [suggestions]="filteredContacts" (completeMethod)="filterOpportunities($event)" field="content" [multiple]="true">
     </p-autoComplete>
-</span>
+</p>
 
 
-<div class="title">
-</div>
+<br>
 
 <p-button (click)="this.saveOpportunity()" label="Add Opportunity"></p-button>
 

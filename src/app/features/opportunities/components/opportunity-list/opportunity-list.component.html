@@ -8,9 +8,10 @@
             <div class="example-box" *ngFor="let item of firstContactList" cdkDrag>
                 <mat-card style="margin-bottom: 2%;">
                     <mat-card-content >
-                        <p><span style="font-weight: bold;">Name:</span> {{item.name}}</p>
+                        <p style="font-weight: bold;color:rgba(255, 166, 0, 0.589)">Name:</p>
+                        <p> {{item.name}}</p>
                         <p >
-                            <span style="font-weight: bold;">Related to:</span>
+                            <span style="font-weight: bold;color:rgba(255, 166, 0, 0.589)">Related to:</span>
                             <span *ngFor="let contact of item.contacts">
                                 <p (click)="navigateToContactDetails(contact.id)">{{contact.firstName}}</p>
                             </span>
@@ -33,9 +34,9 @@
                 <div class="example-box"  *ngFor="let item of meetingScheduledList" cdkDrag>
                     <mat-card style="margin-bottom: 2%;">
                         <mat-card-content >
-                            <p><span style="font-weight: bold;">Name:</span> {{item.name}}</p>
+                            <p><span style="font-weight: bold;color:rgba(255, 166, 0, 0.589)">Name:</span> {{item.name}}</p>
                             <p >
-                                <span style="font-weight: bold;">Related to:</span>
+                                <span style="font-weight: bold;color:rgba(255, 166, 0, 0.589)">Related to:</span>
                                 <span *ngFor="let contact of item.contacts">
                                     <p (click)="navigateToContactDetails(contact.id)">{{contact.firstName}}</p>
                                 </span>
@@ -57,9 +58,9 @@
                     <div class="example-box" *ngFor="let item of proposalList" cdkDrag>
                         <mat-card style="margin-bottom: 2%;">
                             <mat-card-content >
-                                <p><span style="font-weight: bold;">Name:</span> {{item.name}}</p>
+                                <p><span style="font-weight: bold;color:rgba(255, 166, 0, 0.589)">Name:</span> {{item.name}}</p>
                                 <p >
-                                    <span style="font-weight: bold;">Related to:</span>
+                                    <span style="font-weight: bold;color:rgba(255, 166, 0, 0.589)">Related to:</span>
                                     <span *ngFor="let contact of item.contacts">
                                         <p (click)="navigateToContactDetails(contact.id)">{{contact.firstName}}</p>
                                     </span>
@@ -81,9 +82,9 @@
                         <div class="example-box" *ngFor="let item of closedList" cdkDrag>
                             <mat-card style="margin-bottom: 2%;">
                                 <mat-card-content >
-                                    <p><span style="font-weight: bold;">Name:</span> {{item.name}}</p>
+                                    <p><span style="font-weight: bold;color:rgba(255, 166, 0, 0.589)">Name:</span> {{item.name}}</p>
                                     <p >
-                                        <span style="font-weight: bold;">Related to:</span>
+                                        <span style="font-weight: bold;color:rgba(255, 166, 0, 0.589)">Related to:</span>
                                         <span *ngFor="let contact of item.contacts">
                                             <p (click)="navigateToContactDetails(contact.id)">{{contact.firstName}}</p>
                                         </span>
